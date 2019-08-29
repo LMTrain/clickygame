@@ -8,7 +8,7 @@ function CarCard(props) {
         <img alt={props.name} src={props.image} />
       </div>
       
-      <span onClick={() => props.removeCar(props.id)} className="remove">
+      <span onClick={() => props.handleRemoveClick()} className="remove">
         𝘅
       </span>
     </div>
