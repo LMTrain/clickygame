@@ -8,53 +8,22 @@ import "./style.css";
 
 
 
-// var score = 0
-// var imageClick = 0
-// var topScore = 0
-// var randomPick = 0
-// var randomNumber = 0
-// var message = "Click an Image to begin!"
+var score = 0
+var topScore = 0
+var randomPick = 0
+var randomNumber = 0
+var message = "Click an Image to begin!"
 var shuffleCar = " "
-// var shuffleNumber = 0
-// var carsShuffled = []
+var shuffledCars = []
 class App extends Component {
-  // Setting this.state.friends to the friends json array
+  // Setting this.state.cars to the cars json array
   state = {
     cars
     
   };
   
-  // gamestart() {
-  //   for (var i = 0;  i < cars.length; i++) {
-
-  //     shuffleCar = cars[Math.floor(Math.random() * cars.length)];
-  //     carsShuffled.push(shuffleCar);
-  //     console.log(shuffleCar, "shuffleTxt");
-  //     shuffleNumber = cars.indexOf(shuffleCar);
-  //     console.log(shuffleNumber, "shuffleNumber");
-  //     console.log(carsShuffled, "carsShuffled");
-      
-  //   }
-  //   carsShuffled =  this.state.cars;
-  //   this.setState({ cars });
-  // }
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {     
-  //     cards: [],      
-  //     cardsShuffled: false,
-  //     location: ''
-  //   };
-    
-  //   this.state.cards = cars;
-
-  //   this.shuffleButtonClick = this.shuffleButtonClick.bind(this);
-   
-  // }
-
   removeCar = (id) => {
-    console.log(id);
+    console.log(id, "This is ID");
     let carsArray = [...this.state.cars]
 
     let cars = carsArray.filter(car => {
@@ -68,115 +37,49 @@ class App extends Component {
 shuffle = () => {
   let carsArray = [...this.state.cars];
   let carsShuffled = [];
+  this.imageClickScore();
+  this.randomClicks();
+  document.getElementById("top-scores").textContent = score;
+  document.getElementById("top-scoress").textContent = topScore;
+  document.getElementById("click-message").textContent = message;
 
-  for (var i = 0;  i < this.state.cars.length; i++) {
-
-        // shuffleCar = carsArray[Math.floor(Math.random() * carsArray.length)];
-        shuffleCar = carsArray.splice(Math.floor(Math.random()*carsArray.length),1);
-        
+  for (var i = 0;  i < this.state.cars.length; i++) {        
+        shuffleCar = carsArray.splice(Math.floor(Math.random()*carsArray.length),1);        
         carsShuffled = [...carsShuffled, ...shuffleCar];
-               
-      }
-      
-  // Filter this.state.friends for friends with an id not equal to the id being removed
-   //const newCard state =
-  //  console.log('=========',this.state.cars)
+                  
+      }   
+   shuffledCars.push(this.state.cars);
 
-  //  console.log(shuffleCar)
-
-   console.log(this.state.cars);
-   console.log(carsShuffled);
-
-
-  // Set this.state.friends equal to the new friends array
-  this.setState({ cars: carsShuffled });
+  // Set this.state.cars equal to the new cars array
+  this.setState({ cars: carsShuffled });  
 };
 
-test() {
-  console.log('here')
-}
-  
-
-  // removeCar = (id) => {
-  //   let carsArray = [...this.state.cars];
-  //   for (var i = 0;  i < carsArray.length; i++) {
-
-  //         shuffleCar = carsArray[Math.floor(Math.random() * carsArray.length)];
-  //         carsShuffled.push(shuffleCar);
-  //         // console.log(shuffleCar, "shuffleTxt");
-  //         shuffleNumber = carsShuffled.indexOf(shuffleCar);
-  //         // console.log(shuffleNumber, "shuffleNumber");
-  //         // console.log(carsShuffled, "carsShuffled");
-          
-  //       }
-        
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    // const cars = this.state.cars.filter(car => car.id !==id);
-
-    // Set this.state.friends equal to the new friends array
-  //   this.setState({ cars });
-  //   console.log(cars);  
-  // };
-
-
-  // shuffleCards = id => {    
-  //   let cards = [...this.state.cards]
-  //   let shuffledCards = [];
-  //   while (cards.length) {
-  //     const randomIndex = Math.floor(Math.random() * cards.length);
-  //     shuffledCards.push(cards.splice(randomIndex, 1));
-  //     console.log(shuffledCards, "shuffledcards");
-  //   }
-    
-  //   this.setState({
-  //     cards: shuffledCards,
-  //     cardsShuffled: true
-  //   })
-    
-  // }
-  // randomClicks = (id) => {
-  //   let cards = [...this.state.cards]
-  //   randomNumber = cards[Math.floor(Math.random() * cards.length)];
-  //   randomPick = cards.indexOf(randomNumber);
-    
-  // }
-    
-  // imageClickScore = () => {
-    
-  //   score = score + 1
-     
-  //   imageClick = 1 + 1
-   
-  //   if (12 - randomPick + imageClick <= 7) {           
-  //       message = "You guessed incorrectly!";
-  //       score = 0;         
-        
-  //       console.log(message);
-  //   }
-  //   else if (12 - randomPick - imageClick >= 5) {
-  //       message = "You guessed correctly!";
-  //       topScore = topScore + 1  
-  //       console.log(message);
-  //   }
-  // };
-
-  
-  // shuffleButtonClick() {
-  //   this.shuffleCards()
-  //   this.imageClickScore()
-  //   this.randomClicks()
-  //   document.getElementById("top-scores").textContent = score;
-  //   document.getElementById("top-scoress").textContent = topScore;
-  //   document.getElementById("click-message").textContent = message;
-  //   console.log(randomPick);
  
+  randomClicks = () => {    
+    randomNumber = shuffledCars[Math.floor(Math.random() * shuffledCars.length)];
+    randomPick = shuffledCars.indexOf(randomNumber);
+    if (randomPick > 12) {
+      randomPick = [Math.floor(Math.random() * 12)];
+    }    
     
-  // }  
+  }
+    
+  imageClickScore = () => {
+    
+    score = score + 1   
+    if (12 - randomPick <= 6) {           
+        message = "You guessed incorrectly!";
+        score = 0;
+    }
+    else if (12 - randomPick >= 6) {
+        message = "You guessed correctly!";
+        topScore = topScore + 1;
+        
+    }
+  };
+  
 
-  render() {  
-    // if (!this.state.cardsShuffled) {
-    //   this.shuffleCards();
-    // }    
+  render() {
     
     return (
       
